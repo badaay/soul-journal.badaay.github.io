@@ -1,4 +1,7 @@
 import './style.css';
+import { registerSW } from 'virtual:pwa-register';
+
+registerSW({ immediate: true });
 
 // --- State Management ---
 let entries = JSON.parse(localStorage.getItem('souljournal_entries')) || [];
