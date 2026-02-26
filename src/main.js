@@ -3,6 +3,7 @@ import './style.css';
 // --- State Management ---
 let entries = JSON.parse(localStorage.getItem('souljournal_entries')) || [];
 let currentLang = localStorage.getItem('souljournal_lang') || 'en';
+let selectedMood = null;
 
 const TRANSLATIONS = {
   en: {
@@ -72,6 +73,7 @@ const entriesListEl = document.getElementById('entries-list');
 const noEntriesEl = document.getElementById('no-entries');
 const langEnBtn = document.getElementById('lang-en');
 const langIdBtn = document.getElementById('lang-id');
+const moodBtns = document.querySelectorAll('.mood-btn');
 
 // --- Functions ---
 
@@ -109,6 +111,13 @@ function setRandomPrompt() {
   promptEl.textContent = getRandomItem(t.prompts);
 }
 
+function selectMood(mood) {
+  selectedMood = mood;
+  moodBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mood === mood);
+  });
+}
+
 function saveEntries() {
   localStorage.setItem('souljournal_entries', JSON.stringify(entries));
 }
@@ -125,7 +134,8 @@ function createEntry(content) {
       minute: '2-digit'
     }),
     content: content,
-    color: getRandomItem(COLORS)
+    color: getRandomItem(COLORS),
+    mood: selectedMood
   };
 
   entries.unshift(entry);
@@ -152,7 +162,7 @@ function renderEntries() {
   entriesListEl.innerHTML = entries.map(entry => `
     <div class="card entry-item fade-in" style="--accent-color: ${entry.color}">
       <div class="entry-header">
-        <span>${entry.date}</span>
+        <span>${entry.date} ${entry.mood ? `<span class="entry-mood">${entry.mood}</span>` : ''}</span>
         <button class="entry-delete" onclick="window.handleDelete(${entry.id})">${t.delete}</button>
       </div>
       <div class="entry-content">${entry.content}</div>
@@ -167,12 +177,18 @@ refreshPromptBtn.addEventListener('click', setRandomPrompt);
 langEnBtn.addEventListener('click', () => setLanguage('en'));
 langIdBtn.addEventListener('click', () => setLanguage('id'));
 
+moodBtns.forEach(btn => {
+  btn.addEventListener('click', () => selectMood(btn.dataset.mood));
+});
+
 journalForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const content = journalInput.value.trim();
   if (content) {
     createEntry(content);
     journalInput.value = '';
+    selectedMood = null;
+    moodBtns.forEach(btn => btn.classList.remove('active'));
     setRandomPrompt();
   }
 });

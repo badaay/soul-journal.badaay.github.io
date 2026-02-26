@@ -155,6 +155,39 @@ h1 {
   background: rgba(99, 102, 241, 0.1);
 }
 
+.mood-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mood-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  padding: 0.6rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.mood-btn:hover {
+  transform: scale(1.15);
+  background: white;
+}
+
+.mood-btn.active {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  transform: scale(1.1);
+}
+
 textarea {
   width: 100%;
   min-height: 150px;
