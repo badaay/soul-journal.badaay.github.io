@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoulJournal | Minimalist Journaling</title>
+  <meta name="description" content="A simple, colorful, and private journaling app to boost mental wellbeing." />
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <h1>SoulJournal</h1>
+      <div class="lang-switcher">
+        <button id="lang-en" class="lang-btn active" title="English">🇺🇸</button>
+        <button id="lang-id" class="lang-btn" title="Bahasa Indonesia">🇮🇩</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="entry-section" class="card fade-in">
+        <div class="prompt-container">
+          <span id="current-prompt">Loading a thoughtful prompt...</span>
+          <button id="refresh-prompt" class="refresh-prompt">New Prompt</button>
+        </div>
+        <form id="journal-form" class="entry-form">
+          <textarea id="journal-input" placeholder="What's on your mind today?" required></textarea>
+          <button type="submit" class="btn">Save Entry</button>
+        </form>
+      </section>
+
+      <section id="history-section">
+        <h2 style="margin: 2rem 0 1rem; font-size: 1.5rem; color: var(--text-muted);">Past Entries</h2>
+        <div id="entries-list" class="entries-list">
+          <!-- Entries will be injected here -->
+          <p id="no-entries" style="text-align: center; color: var(--text-muted); margin-top: 2rem;">No entries yet.
+            Start writing your first one!</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
